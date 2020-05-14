@@ -9,10 +9,10 @@ private:
     std::string fileName;
 public:
     explicit Reader(const std::string& );
-    void clean();
+    void cleanFile();
     void buildAVLTree(AVLTree&);
     const std::string &getFileName() const;
-
+    static void cleanWord(std::string&);
     void setFileName(const std::string &fileName);
 };
 

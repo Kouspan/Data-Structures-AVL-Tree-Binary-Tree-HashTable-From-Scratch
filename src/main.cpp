@@ -31,7 +31,7 @@ int main() {
             cout<<"step 1"<<endl;
             Reader reader("Dracula.txt");
             cout<<"step 2"<<endl;
-            reader.clean();
+            reader.cleanFile();
             cout<<"step 3"<<endl;
             reader.buildAVLTree(tree2);
             cout<<"step 4"<<endl;
