@@ -7,8 +7,6 @@ class BinaryTree {
 private:
     BTNode *root;
 
-
-
     void deleteTree(BTNode *node);
 
 public:
@@ -20,7 +18,9 @@ public:
 
     BTNode *getRoot();
 
-    virtual BTNode *add(const std::string &);
+    void setRoot(BTNode *node);
+
+    virtual BTNode *insert(const std::string &);
 
     void postOrder(BTNode *node);
 
@@ -28,9 +28,9 @@ public:
 
     void preOrder(BTNode *node);
 
-    BTNode* search(const std::string &);
+    BTNode *search(const std::string &);
 
-    virtual BTNode* del(const std::string &);
+    virtual BTNode *remove(const std::string &);
 
 
 };

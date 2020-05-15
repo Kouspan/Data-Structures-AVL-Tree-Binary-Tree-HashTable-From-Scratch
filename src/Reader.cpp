@@ -9,6 +9,7 @@ Reader::Reader(const std::string &name) {
     Reader::fileName = name;
     file.open(fileName);
 }
+
 /**read file and remove all punctuation marks, then save the text to
  * a new file.**/
 void Reader::cleanFile() {
@@ -27,16 +28,17 @@ void Reader::cleanFile() {
         }
         std::istringstream ss(line);
         std::copy(std::istream_iterator<std::string>{ss},
-             std::istream_iterator<std::string>(), std::back_inserter(tokens));
-        for(auto & token : tokens){
+                  std::istream_iterator<std::string>(), std::back_inserter(tokens));
+        for (auto &token : tokens) {
             cleanWord(token);
-            output<<token<<" ";
+            output << token << " ";
         }
         tokens.clear();
         output << std::endl;
     }
     setFileName(name_new);
 }
+
 /**clean punctuation marks from front and back of @param word**/
 void Reader::cleanWord(std::string &word) {
     auto it_f = word.begin();
@@ -64,6 +66,6 @@ void Reader::buildAVLTree(AVLTree &tree) {
         return;
     std::string word;
     while (file >> word) {
-        tree.add(word);
+        tree.insert(word);
     }
 }

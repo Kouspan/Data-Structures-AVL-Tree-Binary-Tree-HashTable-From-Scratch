@@ -16,7 +16,7 @@ BTNode *BinaryTree::getRoot() {
 
 /*add BTNode with element == word to tree.
  * if BTNode already exists increment copies by 1*/
-BTNode *BinaryTree::add(const std::string &word) {
+BTNode *BinaryTree::insert(const std::string &word) {
     if (root == nullptr) {
         root = new BTNode(word);
         return root;
@@ -85,7 +85,7 @@ BTNode *BinaryTree::search(const std::string &key) {
 
 /*delete BTNode with element == key from tree.
  * if BTNode has more than 1 copies in tree, keep BTNode and decrement copies by 1*/
-BTNode *BinaryTree::del(const std::string &key) {
+BTNode *BinaryTree::remove(const std::string &key) {
     BTNode *node = search(key);
     if (node == nullptr)
         return node;
@@ -133,6 +133,10 @@ void BinaryTree::deleteTree(BTNode *node) {
     delete node;
 }
 
+void BinaryTree::setRoot(BTNode *node) {
+    root = node;
+    root->setParent(nullptr);
+}
 
 
 

@@ -43,13 +43,13 @@ void BTNode::setParent(BTNode *parent1) {
 
 void BTNode::setLeft(BTNode *left1) {
     left = left1;
-    if(left)
+    if (left)
         left->setParent(this);
 }
 
 void BTNode::setRight(BTNode *right1) {
     right = right1;
-    if(right)
+    if (right)
         right->setParent(this);
 }
 
@@ -74,11 +74,6 @@ BTNode &BTNode::operator=(const BTNode &node) {
     right = node.getRight();
     copies = node.getCopies();
     return *this;
-}
-
-void BTNode::incHeight() {
-    height++;
-
 }
 
 
