@@ -6,12 +6,29 @@ BinaryTree::BinaryTree() {
     root = nullptr;
 }
 
+BinaryTree::~BinaryTree() {
+    deleteTree(root);
+}
+
 BinaryTree::BinaryTree(const std::string &root) {
     BinaryTree::root = new BTNode(root);
 }
 
+void BinaryTree::deleteTree(BTNode *node) {
+    if (node == nullptr)
+        return;
+    deleteTree(node->getLeft());
+    deleteTree(node->getRight());
+    delete node;
+}
+
 BTNode *BinaryTree::getRoot() {
     return root;
+}
+
+void BinaryTree::setRoot(BTNode *node) {
+    root = node;
+    root->setParent(nullptr);
 }
 
 /*add BTNode with element == word to tree.
@@ -40,47 +57,6 @@ BTNode *BinaryTree::insert(const std::string &word) {
     else
         pp->setRight(node);
     return node;
-}
-
-void BinaryTree::postOrder(BTNode *node) {
-    if (node == nullptr)
-        return;
-    postOrder(node->getLeft());
-    postOrder(node->getRight());
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
-}
-
-void BinaryTree::inOrder(BTNode *node) {
-    if (node == nullptr)
-        return;
-    inOrder(node->getLeft());
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
-    inOrder(node->getRight());
-}
-
-void BinaryTree::preOrder(BTNode *node) {
-    if (node == nullptr)
-        return;
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
-    preOrder(node->getLeft());
-    preOrder(node->getRight());
-}
-
-/*search if BTNode with element == key is in the tree and return it
- * else return nullptr*/
-BTNode *BinaryTree::search(const std::string &key) {
-    BTNode *p = root;
-    while (p != nullptr) {
-        if (key < p->getElement())
-            p = p->getLeft();
-        else if (key > p->getElement())
-            p = p->getRight();
-        else {
-            return p;
-        }
-    }
-    return p;
-
 }
 
 /*delete BTNode with element == key from tree.
@@ -121,21 +97,57 @@ BTNode *BinaryTree::remove(const std::string &key) {
     return parent;
 }
 
-BinaryTree::~BinaryTree() {
-    deleteTree(root);
+/*search if BTNode with element == key is in the tree and return it
+ * else return nullptr*/
+BTNode *BinaryTree::search(const std::string &key) const {
+    BTNode *p = root;
+    while (p != nullptr) {
+        if (key < p->getElement())
+            p = p->getLeft();
+        else if (key > p->getElement())
+            p = p->getRight();
+        else {
+            return p;
+        }
+    }
+    return p;
+
 }
 
-void BinaryTree::deleteTree(BTNode *node) {
+void BinaryTree::postOrder(BTNode *node) {
     if (node == nullptr)
         return;
-    deleteTree(node->getLeft());
-    deleteTree(node->getRight());
-    delete node;
+    postOrder(node->getLeft());
+    postOrder(node->getRight());
+    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
 }
 
-void BinaryTree::setRoot(BTNode *node) {
-    root = node;
-    root->setParent(nullptr);
+void BinaryTree::inOrder(BTNode *node) {
+    if (node == nullptr)
+        return;
+    inOrder(node->getLeft());
+    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
+    inOrder(node->getRight());
+}
+
+void BinaryTree::preOrder(BTNode *node) {
+    if (node == nullptr)
+        return;
+    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
+    preOrder(node->getLeft());
+    preOrder(node->getRight());
+}
+
+int BinaryTree::count(BTNode *node) {
+    if (!node)
+        return 0;
+    return node->getCopies() + count(node->getLeft()) + count(node->getRight());
+}
+
+int BinaryTree::uniqueCount(BTNode *node) {
+    if (!node)
+        return 0;
+    return 1 + uniqueCount(node->getLeft()) + uniqueCount(node->getRight());
 }
 
 

@@ -16,19 +16,19 @@ public:
 
     explicit BTNode(const std::string &element);
 
+    std::string getElement() const;
+
     BTNode *getParent() const;
 
     BTNode *getLeft() const;
 
-    void setHeight(int height);
-
     BTNode *getRight() const;
-
-    std::string getElement() const;
 
     int getCopies() const;
 
     int getHeight() const;
+
+    void setElement(const std::string &element);
 
     void setParent(BTNode *parent);
 
@@ -36,14 +36,9 @@ public:
 
     void setRight(BTNode *right);
 
-    void setElement(const std::string &element);
-
     void setCopies(int);
 
-    void incHeight();
-
-    BTNode &operator=(const BTNode &);
-
+    void setHeight(int var);
 };
 
 #endif //BTNODE_H

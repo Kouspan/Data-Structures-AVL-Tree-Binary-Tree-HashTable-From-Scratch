@@ -37,6 +37,8 @@ void Reader::cleanFile() {
         output << std::endl;
     }
     setFileName(name_new);
+    file.clear();
+    file.seekg(0, std::ios::beg);
 }
 
 /**clean punctuation marks from front and back of @param word**/
@@ -59,13 +61,43 @@ void Reader::setFileName(const std::string &fileName1) {
     Reader::fileName = fileName1;
     file.close();
     file.open(fileName);
+    file.clear();
+    file.seekg(0, std::ios::beg);
 }
 
-void Reader::buildAVLTree(AVLTree &tree) {
+void Reader::buildTree(BinaryTree &tree) {
     if (!file.is_open())
         return;
     std::string word;
     while (file >> word) {
         tree.insert(word);
     }
+    file.clear();
+    file.seekg(0, std::ios::beg);
+}
+
+int Reader::bulkSearch(const BinaryTree &tree) {
+    if (!file.is_open())
+        return -1;
+    std::string word;
+    int total = 0;
+    while (file >> word) {
+        if (tree.search(word))
+            total++;
+    }
+    file.clear();
+    file.seekg(0, std::ios::beg);
+    return total;
+}
+
+int Reader::wordCount() {
+    if (!file.is_open())
+        return -1;
+    std::string word;
+    int total = 0;
+    while (file >> word)
+        total++;
+    file.clear();
+    file.seekg(0, std::ios::beg);
+    return total;
 }

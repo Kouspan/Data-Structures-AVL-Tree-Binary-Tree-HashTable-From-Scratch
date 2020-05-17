@@ -13,6 +13,10 @@ BTNode::BTNode(const std::string &element1) : BTNode() {
     element = element1;
 }
 
+std::string BTNode::getElement() const {
+    return element;
+}
+
 BTNode *BTNode::getParent() const {
     return parent;
 }
@@ -25,16 +29,16 @@ BTNode *BTNode::getRight() const {
     return right;
 }
 
-std::string BTNode::getElement() const {
-    return element;
-}
-
 int BTNode::getCopies() const {
     return copies;
 }
 
 int BTNode::getHeight() const {
     return height;
+}
+
+void BTNode::setElement(const std::string &element1) {
+    BTNode::element = element1;
 }
 
 void BTNode::setParent(BTNode *parent1) {
@@ -53,32 +57,10 @@ void BTNode::setRight(BTNode *right1) {
         right->setParent(this);
 }
 
-void BTNode::setElement(const std::string &element1) {
-    BTNode::element = element1;
+void BTNode::setCopies(int var) {
+    copies = var;
 }
 
-void BTNode::setCopies(int a) {
-    copies = a;
+void BTNode::setHeight(int var) {
+    BTNode::height = var;
 }
-
-void BTNode::setHeight(int height) {
-    BTNode::height = height;
-}
-
-BTNode &BTNode::operator=(const BTNode &node) {
-    if (this == &node)
-        return *this;
-    element = node.getElement();
-    parent = node.getParent();
-    left = node.getLeft();
-    right = node.getRight();
-    copies = node.getCopies();
-    return *this;
-}
-
-
-
-
-
-
-

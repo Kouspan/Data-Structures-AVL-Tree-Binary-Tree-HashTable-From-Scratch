@@ -8,18 +8,22 @@ class Reader {
 private:
     std::ifstream file;
     std::string fileName;
+    static void cleanWord(std::string &);
 public:
     explicit Reader(const std::string &);
 
     void cleanFile();
 
-    void buildAVLTree(AVLTree &);
+    void buildTree(BinaryTree &tree);
 
     const std::string &getFileName() const;
 
-    static void cleanWord(std::string &);
+    int bulkSearch(const BinaryTree &tree);
 
     void setFileName(const std::string &fileName);
+
+    int wordCount();
+
 };
 
 

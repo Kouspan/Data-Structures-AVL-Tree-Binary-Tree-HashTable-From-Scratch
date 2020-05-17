@@ -45,33 +45,36 @@ void AVLTree::balance(BTNode *node) {
         return;
     int diff = heightDiff(node);
     if (rotate(node, diff))                 //if node rotated
-        balance(node);                      //balance node after rotation
-    else {                                   //else check if node height is correct
-        int max = diff < 0 ? height(node->getRight()) : height(node->getLeft());//max height of children
-        if (node->getHeight() == max + 1)   //if it is, then return. tree is balanced
-            return;
-        node->setHeight(max + 1);     //if not, change height of node and balance it's parent.
+        diff = heightDiff(node);            //fix it's height node after rotation
+    if (fixHeight(node, diff))
         balance(node->getParent());
-    }
 }
 
 bool AVLTree::rotate(BTNode *node, int diff) {
 
     switch (diff) {
         case -2: {
+            BTNode *child = node->getRight();
             int childDiff = heightDiff(node->getRight());
             if (childDiff < 0)
                 rotateLeft(node);
-            else
-                rotateRightLeft(node);
+            else {
+                rotateRight(child);
+                rotateLeft(node);
+                fixHeight(child, heightDiff(child));
+            }
             break;
         }
         case 2: {
-            int childDiff = heightDiff(node->getLeft());
+            BTNode *child = node->getLeft();
+            int childDiff = heightDiff(child);
             if (childDiff > 0)
                 rotateRight(node);
-            else
-                rotateLeftRight(node);
+            else {
+                rotateLeft(node->getLeft());
+                rotateRight(node);
+                fixHeight(child, heightDiff(child));
+            }
             break;
         }
         case 10:
@@ -100,10 +103,6 @@ void AVLTree::rotateLeft(BTNode *node) {
     child->setLeft(node);
 }
 
-void AVLTree::rotateRightLeft(BTNode *node) {
-
-}
-
 void AVLTree::rotateRight(BTNode *node) {
     BTNode *child = node->getLeft();
     if (node->getParent()) {
@@ -118,6 +117,10 @@ void AVLTree::rotateRight(BTNode *node) {
 
 }
 
-void AVLTree::rotateLeftRight(BTNode *node) {
-
+bool AVLTree::fixHeight(BTNode *node, int diff) {
+    int max = diff < 0 ? height(node->getRight()) : height(node->getLeft());
+    if (node->getHeight() == max + 1)   //if it is, then return. tree is balanced
+        return false;
+    node->setHeight(max + 1);
+    return true;
 }

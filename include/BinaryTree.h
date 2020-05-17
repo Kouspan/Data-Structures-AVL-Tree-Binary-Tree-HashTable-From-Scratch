@@ -22,15 +22,19 @@ public:
 
     virtual BTNode *insert(const std::string &);
 
+    virtual BTNode *remove(const std::string &);
+
+    BTNode *search(const std::string &) const;
+
     void postOrder(BTNode *node);
 
     void inOrder(BTNode *node);
 
     void preOrder(BTNode *node);
 
-    BTNode *search(const std::string &);
+    int count(BTNode *node);
 
-    virtual BTNode *remove(const std::string &);
+    int uniqueCount(BTNode *node);
 
 
 };

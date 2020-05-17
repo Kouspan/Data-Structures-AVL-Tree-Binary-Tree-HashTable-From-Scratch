@@ -22,17 +22,13 @@ public:
 
     bool rotate(BTNode *node, int diff = 10);
 
-    void rotateRightLeft(BTNode *node);
-
     void rotateRight(BTNode *node);
 
     void rotateLeft(BTNode *node);
 
-    void rotateLeftRight(BTNode *node);
-
     static int heightDiff(BTNode *node);
 
-
+    static bool fixHeight(BTNode *node, int diff);
 };
 
 
