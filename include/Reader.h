@@ -8,13 +8,16 @@ class Reader {
 private:
     std::ifstream file;
     std::string fileName;
+
     static void cleanWord(std::string &);
+
 public:
     explicit Reader(const std::string &);
 
     void cleanFile();
 
-    void buildTree(BinaryTree &tree);
+    template<class T>
+    void build(T &ds);
 
     const std::string &getFileName() const;
 
@@ -25,6 +28,18 @@ public:
     int wordCount();
 
 };
+
+template<class T>
+void Reader::build(T &ds) {
+    if (!file.is_open())
+        return;
+    std::string word;
+    while (file >> word) {
+        ds.insert(word);
+    }
+    file.clear();
+    file.seekg(0, std::ios::beg);
+}
 
 
 #endif //DATASTRUCTURES_READER_H

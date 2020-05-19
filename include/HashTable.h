@@ -9,27 +9,32 @@ private:
     int capacity;
     int size;
     std::string *table;
-    int count[];
+    int *count;
+    int collisions;
 
-    int h1(int k);
+private:
 
-    int h2(int k);
+    unsigned int h1(unsigned int k) const;
 
-    int h(int k, int i);
+    unsigned int h2(unsigned int key) const;
 
-    int hash(const std::string &str);
+    unsigned int h(unsigned int key, unsigned int i);
 
     void resize(int M);
 
 
 public:
-    HashTable();
+    int getCollisions() const;
 
-    HashTable(int M);
+    int getSize() const;
 
-    void insert(std::string str);
+    HashTable(int cap);
 
-    int contains(std::string str);
+    void insert(std::string &str);
+
+    int contains(const std::string &str);
+
+    double loadFactor() const;
 
 
 };

@@ -65,17 +65,6 @@ void Reader::setFileName(const std::string &fileName1) {
     file.seekg(0, std::ios::beg);
 }
 
-void Reader::buildTree(BinaryTree &tree) {
-    if (!file.is_open())
-        return;
-    std::string word;
-    while (file >> word) {
-        tree.insert(word);
-    }
-    file.clear();
-    file.seekg(0, std::ios::beg);
-}
-
 int Reader::bulkSearch(const BinaryTree &tree) {
     if (!file.is_open())
         return -1;
