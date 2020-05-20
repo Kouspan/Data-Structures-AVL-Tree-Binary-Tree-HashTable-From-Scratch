@@ -36,13 +36,11 @@ public:
 
     /**
     * sets the left children and also sets this as it's parent
-    * @param left
     */
     void setLeft(BTNode *left);
 
     /**
      * sets the right children and also sets this as it's parent
-     * @param right
      */
     void setRight(BTNode *right);
 

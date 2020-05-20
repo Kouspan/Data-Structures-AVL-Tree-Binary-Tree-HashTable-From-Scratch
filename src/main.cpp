@@ -8,61 +8,52 @@
 using namespace std;
 
 int main() {
+    ofstream out("output.txt", ios::trunc);
+    out.close();
+    out.open("output.txt", ios::app);
+    out << "RESULTS BELOW OF EACH SET OF WORDS\n" << endl;
+
     BinaryTree Btree;
     AVLTree tree;
+    HashTable ht(20639);
+    Reader reader("Dracula.txt");
+    reader.cleanFile();
+    Reader reader2("Dracula_snip.txt");
+    reader2.cleanFile();
+    int s_w = reader2.wordCount();
+    //Binary Tree output
+    auto now = chrono::steady_clock::now();
+    reader.build(Btree);
+    auto mid = chrono::steady_clock::now();
+    int found = reader2.bulkSearch(Btree);
+    auto end = chrono::steady_clock::now();
+    out << "\nBinary Tree: { \n\t" << "total words: " << Btree.count(Btree.getRoot()) << endl;
+    out << "\tunique words: " << Btree.uniqueCount(Btree.getRoot()) << endl;
+    out << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
+    out << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
+    out << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
+    //AVL Tree output
+    now = chrono::steady_clock::now();
+    reader.build(tree);
+    mid = chrono::steady_clock::now();
+    found = reader2.bulkSearch(tree);
+    end = chrono::steady_clock::now();
+    out << "\nAVL Tree: { \n\t" << "total words: " << Btree.count(tree.getRoot()) << endl;
+    out << "\tunique words: " << Btree.uniqueCount(tree.getRoot()) << endl;
+    out << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
+    out << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
+    out << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
+    //HashTable output
+    now = chrono::steady_clock::now();
+    reader.build(ht);
+    mid = chrono::steady_clock::now();
+    found = reader2.bulkContains(ht);
+    end = chrono::steady_clock::now();
+    out << "\nHashTable: { \n\t" << "filled %: " << ht.loadFactor() << "%" << endl;
+    out << "\tunique words: " << ht.getSize() << endl;
+    out << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
+    out << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
+    out << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
 
-    int op = 4;
-    switch (op) {
-
-        case 2: {
-            auto now = chrono::steady_clock::now();
-            Reader reader("clean_Dracula.txt");
-            reader.build(tree);
-            auto end = chrono::steady_clock::now();
-            auto time_span = chrono::duration_cast<chrono::milliseconds>(end - now);
-            cout << "time: " << time_span.count() << " milliseconds" << endl;
-            cout << tree.count(tree.getRoot()) << " " << tree.uniqueCount(tree.getRoot()) << endl;
-            Reader reader1("clean_dracula_snip.txt");
-            cout << "searching..." << reader1.wordCount() << " words" << endl;
-            auto now2 = chrono::steady_clock::now();
-            reader1.bulkSearch(tree);
-            auto end2 = chrono::steady_clock::now();
-            cout << "time: " << chrono::duration_cast<chrono::milliseconds>(end2 - now2).count() << endl;
-            break;
-        }
-        case 3: {
-            auto now = chrono::steady_clock::now();
-            Reader reader("clean_Dracula.txt");
-            reader.build(Btree);
-            auto end = chrono::steady_clock::now();
-            auto time_span = chrono::duration_cast<chrono::milliseconds>(end - now);
-            cout << "time: " << time_span.count() << " milliseconds" << endl;
-            cout << Btree.count(Btree.getRoot()) << " " << Btree.uniqueCount(Btree.getRoot()) << endl;
-            Reader reader1("clean_dracula_snip.txt");
-            cout << "searching..." << reader.wordCount() << " words" << endl;
-            auto now2 = chrono::steady_clock::now();
-            reader.bulkSearch(Btree);
-            auto end2 = chrono::steady_clock::now();
-            cout << "time: " << chrono::duration_cast<chrono::milliseconds>(end2 - now2).count() << endl;
-            break;
-        }
-        case 4: {
-            HashTable ht(20639);
-            auto now = chrono::steady_clock::now();
-            Reader reader("clean_Dracula.txt");
-            reader.build(ht);
-            auto end = chrono::steady_clock::now();
-            auto time_span = chrono::duration_cast<chrono::milliseconds>(end - now);
-            cout << "time: " << time_span.count() << " milliseconds" << endl;
-            cout << "unique words " << ht.getSize() << endl;
-            cout << "collisions " << ht.getCollisions() << endl;
-            reader.setFileName("clean_Dracula_snip.txt");
-            now = chrono::steady_clock::now();
-            reader.bulkContains(ht);
-            end = chrono::steady_clock::now();
-            cout << "time :" << chrono::duration_cast<chrono::nanoseconds>(end - now).count() << endl;
-            cout << ht.loadFactor() << " " << ht.getCapacity();
-        }
-    }
     return 0;
 }
