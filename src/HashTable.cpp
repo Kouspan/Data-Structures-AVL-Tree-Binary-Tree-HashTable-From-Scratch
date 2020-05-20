@@ -1,5 +1,4 @@
 #include <iostream>
-#include <random>
 #include "HashTable.h"
 
 typedef std::hash<std::string> hash;
@@ -12,28 +11,17 @@ HashTable::HashTable(int cap) {
     count = new int[capacity];
 }
 
-unsigned int HashTable::h1(unsigned int key) const {
-    return key % capacity;
-}
-
-unsigned int HashTable::h2(unsigned int key) const {
-    return (33 - (key % 33));
-}
-
-unsigned int HashTable::h(unsigned int key, unsigned int i) {
-    std::mt19937 generator(key);
-    static std::uniform_int_distribution<unsigned int> distribution;
-    auto rand = distribution(generator);
-    return (key + i * rand) % capacity;
+unsigned int HashTable::h(unsigned int key, unsigned int i) const {
+    return (key + i * i) % capacity;
 }
 
 
-void HashTable::insert(std::string &str) {
-    unsigned int k = hash{}(str);
-    int i = 0;
+void HashTable::insert(std::string &word) {
+    unsigned int k = hash{}(word);
+    unsigned int i = 0;
     std::size_t j = h(k, i);
     while (!table[j].empty()) {
-        if (table[j] == str) {
+        if (table[j] == word) {
             count[j]++;
             return;
         }
@@ -41,32 +29,33 @@ void HashTable::insert(std::string &str) {
         i++;
         j = h(k, i);
     }
-    table[j] = str;
+    table[j] = word;
     count[j] = 1;
     size++;
-
-    if (loadFactor() > 70)
+    if (loadFactor() > 50) {
         resize(2 * capacity);
+        std::cout << "resized to: " << capacity << std::endl;
+    }
 }
 
 void HashTable::resize(int cap) {
-    auto *tempTable = new std::string[cap];
+    std::string *tempTable = new std::string[cap];
     int *tempCount = new int[cap];
     int tempCap = capacity;
     capacity = cap;
     for (int z = 0; z < tempCap; z++) {
-        std::string str = table[z];
+        std::string word = table[z];
         int c = count[z];
-        if (!str.empty()) {
-            unsigned int k = hash{}(str);
-            int i = 0;
+        if (!word.empty()) {
+            unsigned int k = hash{}(word);
+            unsigned int i = 0;
             unsigned int j = h(k, i);
             while (!tempTable[j].empty()) {
                 collisions++;
                 i++;
                 j = h(k, i);
             }
-            tempTable[j] = str;
+            tempTable[j] = word;
             tempCount[j] = c;
         }
     }
@@ -76,12 +65,12 @@ void HashTable::resize(int cap) {
     count = tempCount;
 }
 
-int HashTable::contains(const std::string &str) {
-    int k = hash{}(str);
-    int i = 0;
+int HashTable::contains(const std::string &word) const {
+    unsigned int k = hash{}(word);
+    unsigned int i = 0;
     unsigned int j = h(k, i);
     while (!table[j].empty()) {
-        if (table[j] == str)
+        if (table[j] == word)
             return count[j];
         i++;
         j = h(k, i);
@@ -99,4 +88,8 @@ int HashTable::getSize() const {
 
 int HashTable::getCollisions() const {
     return collisions;
+}
+
+int HashTable::getCapacity() const {
+    return capacity;
 }

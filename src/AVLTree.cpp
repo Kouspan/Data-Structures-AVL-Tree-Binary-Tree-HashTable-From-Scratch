@@ -20,19 +20,6 @@ BTNode *AVLTree::remove(const std::string &key) {
     return node;
 }
 
-/** calculates all the heights of @param node and it's descendants **/
-int AVLTree::getDepth(BTNode *node) {
-    if (node == nullptr)
-        return 0;
-    int i = getDepth(node->getLeft());
-    int j = getDepth(node->getRight());
-    int max = i > j ? i : j;
-    node->setHeight(max);
-    return max + 1;
-
-}
-
-/**height of node **/
 int AVLTree::height(BTNode *node) {
     if (!node)
         return -1;
@@ -77,15 +64,13 @@ bool AVLTree::rotate(BTNode *node, int diff) {
             }
             break;
         }
-        case 10:
-            rotate(node, heightDiff(node));
         default:
             return false;
     }
     return true;
 }
 
-/**height difference of node->left and node->right **/
+/** **/
 int AVLTree::heightDiff(BTNode *node) {
     return height(node->getLeft()) - height(node->getRight());
 }

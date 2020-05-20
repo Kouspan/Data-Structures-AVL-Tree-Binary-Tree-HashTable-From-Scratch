@@ -1,8 +1,9 @@
 #ifndef DATASTRUCTURES_READER_H
 #define DATASTRUCTURES_READER_H
-
+#
 #include <fstream>
 #include <AVLTree.h>
+#include "HashTable.h"
 
 class Reader {
 private:
@@ -22,6 +23,8 @@ public:
     const std::string &getFileName() const;
 
     int bulkSearch(const BinaryTree &tree);
+
+    int bulkContains(const HashTable &table);
 
     void setFileName(const std::string &fileName);
 

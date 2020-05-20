@@ -1,17 +1,26 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
-
 #include <BTNode.h>
-
+/**
+ * A binary tree made of linked BTNode nodes.
+ */
 class BinaryTree {
 private:
     BTNode *root;
 
+    /**
+     * Deletes nodes of tree in post order.
+     * @param node root of subtree to be deleted.
+     */
     void deleteTree(BTNode *node);
 
 public:
+
     BinaryTree();
 
+    /**
+     * @see deleteTree(BTNode*);
+     */
     ~BinaryTree();
 
     explicit BinaryTree(const std::string &);
@@ -20,10 +29,26 @@ public:
 
     void setRoot(BTNode *node);
 
-    virtual BTNode *insert(const std::string &);
+    /**
+     * Add @param word to tree.
+     * Increment copies of BTNode if word already exists.
+     *
+     * @return BTNode of word
+     */
+    virtual BTNode *insert(const std::string &word);
 
-    virtual BTNode *remove(const std::string &);
+    /**
+     * Delete @param word from tree.
+     * If BTNode has more than 1 copies of word, decrement copies.
+     *
+     * @return BTNode parent of @param word
+     */
+    virtual BTNode *remove(const std::string &word);
 
+    /**
+     * Search @param word in tree.
+     * @return BTNode of word if found, else nullptr.
+     */
     BTNode *search(const std::string &) const;
 
     void postOrder(BTNode *node);
@@ -32,8 +57,17 @@ public:
 
     void preOrder(BTNode *node);
 
+    /**
+     * Count all words in the subtree with root @param node.
+     * @return number of words
+     */
     int count(BTNode *node);
 
+    /**
+     * Count all unique words in the subtree with root @param node.
+     *
+     * @return number of words
+     */
     int uniqueCount(BTNode *node);
 
 

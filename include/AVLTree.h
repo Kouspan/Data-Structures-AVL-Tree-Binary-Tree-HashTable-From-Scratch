@@ -5,6 +5,45 @@
 #include "BTNode.h"
 
 class AVLTree : public BinaryTree {
+private:
+    static int height(BTNode *node);
+
+    /**
+     * Checks if @param node needs to rotate and if it's height is correct
+     * If node rotated or it's height is not correct, it calls itself
+     * recursively with parent of node.
+     */
+    void balance(BTNode *node);
+
+    /**
+     * Chooses the correct rotation based on the difference of the height
+     * of node's children and their children.
+     * @param node
+     * @param diff difference of node's children
+     * @return true if node rotated
+     */
+    bool rotate(BTNode *node, int diff);
+
+    void rotateRight(BTNode *node);
+
+    void rotateLeft(BTNode *node);
+
+    /**
+     * height difference of node->left and node->right
+     * @param node
+     * @return left->height - right->height
+     */
+    static int heightDiff(BTNode *node);
+
+    /**
+     * Checks if the height of node is correct bases on it's children.
+     * If its not, change it.
+     * @param node
+     * @param diff @see heightDiff(BTNode *node)
+     * @return true if the height was changed
+     */
+    static bool fixHeight(BTNode *node, int diff);
+
 public:
     AVLTree();
 
@@ -14,21 +53,7 @@ public:
 
     BTNode *remove(const std::string &key) override;
 
-    int getDepth(BTNode *node);
 
-    void balance(BTNode *node);
-
-    static int height(BTNode *node);
-
-    bool rotate(BTNode *node, int diff = 10);
-
-    void rotateRight(BTNode *node);
-
-    void rotateLeft(BTNode *node);
-
-    static int heightDiff(BTNode *node);
-
-    static bool fixHeight(BTNode *node, int diff);
 };
 
 

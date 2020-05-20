@@ -69,10 +69,34 @@ int Reader::bulkSearch(const BinaryTree &tree) {
     if (!file.is_open())
         return -1;
     std::string word;
+    BTNode *node;
+    std::ofstream out("output.txt", std::ios::app);
     int total = 0;
     while (file >> word) {
-        if (tree.search(word))
+        node = tree.search(word);
+        if (node) {
+            out << word << " " << node->getCopies() << std::endl;
             total++;
+        }
+    }
+    file.clear();
+    file.seekg(0, std::ios::beg);
+    return total;
+}
+
+int Reader::bulkContains(const HashTable &table) {
+    if (!file.is_open())
+        return -1;
+    std::string word;
+    std::ofstream out("output.txt", std::ios::app);
+    int total = 0;
+    int copies;
+    while (file >> word) {
+        copies = table.contains(word);
+        if (copies) {
+            out << word << " " << copies << std::endl;
+            total++;
+        }
     }
     file.clear();
     file.seekg(0, std::ios::beg);
