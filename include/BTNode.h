@@ -11,7 +11,7 @@ private:
     BTNode *parent;
     BTNode *right;
     BTNode *left;
-    int copies;
+    int duplicates;
     int height;
 public:
     BTNode();
@@ -26,7 +26,7 @@ public:
 
     BTNode *getRight() const;
 
-    int getCopies() const;
+    int getDuplicates() const;
 
     int getHeight() const;
 
@@ -44,7 +44,7 @@ public:
      */
     void setRight(BTNode *right);
 
-    void setCopies(int);
+    void setDuplicates(int var);
 
     void setHeight(int var);
 };

@@ -31,7 +31,7 @@ public:
 
     /**
      * Add @param word to tree.
-     * Increment copies of BTNode if word already exists.
+     * Increment duplicates of BTNode if word already exists.
      *
      * @return BTNode of word
      */
@@ -39,7 +39,7 @@ public:
 
     /**
      * Delete @param word from tree.
-     * If BTNode has more than 1 copies of word, decrement copies.
+     * If BTNode has more than 1 duplicates of word, decrement by 1.
      *
      * @return BTNode parent of @param word
      */

@@ -19,21 +19,18 @@ void Reader::cleanFile() {
     std::string name_new = "clean_" + fileName;
     output.open(name_new);
     std::string line;
-    std::vector<std::string> tokens;
-
+    std::string word;
     while (std::getline(file, line)) {
         std::size_t t = -2;
         while ((t = line.find('-', t + 2)) != std::string::npos) {
             line.replace(t, 1, " ");
         }
         std::istringstream ss(line);
-        std::copy(std::istream_iterator<std::string>{ss},
-                  std::istream_iterator<std::string>(), std::back_inserter(tokens));
-        for (auto &token : tokens) {
-            cleanWord(token);
-            output << token << " ";
+        while (ss >> word) {
+            cleanWord(word);
+            output << word << " ";
         }
-        tokens.clear();
+        ss.clear();
         output << std::endl;
     }
     setFileName(name_new);
@@ -75,7 +72,7 @@ int Reader::bulkSearch(const BinaryTree &tree) {
     while (file >> word) {
         node = tree.search(word);
         if (node) {
-            out << word << " " << node->getCopies() << std::endl;
+            out << word << " " << node->getDuplicates() << std::endl;
             total++;
         }
     }

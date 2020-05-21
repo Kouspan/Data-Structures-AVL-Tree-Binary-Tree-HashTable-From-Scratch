@@ -46,7 +46,7 @@ BTNode *BinaryTree::insert(const std::string &word) {
         else if (word > p->getElement())
             p = p->getRight();
         else {
-            p->setCopies(p->getCopies() + 1);
+            p->setDuplicates(p->getDuplicates() + 1);
             return p;
         }
     }
@@ -63,8 +63,8 @@ BTNode *BinaryTree::remove(const std::string &key) {
     BTNode *node = search(key);
     if (node == nullptr)
         return node;
-    if (node->getCopies() > 1)//if more than 1 copies, remove 1 copy.
-        node->setCopies(node->getCopies() - 1);
+    if (node->getDuplicates() > 1)//if more than 1 duplicates, decrement by 1.
+        node->setDuplicates(node->getDuplicates() - 1);
     else {
         //find largest value of left subtree
         if (node->getRight() != nullptr && node->getLeft() != nullptr) {
@@ -73,7 +73,7 @@ BTNode *BinaryTree::remove(const std::string &key) {
                 p = p->getRight();
             }
             node->setElement(p->getElement());
-            node->setCopies(p->getCopies());
+            node->setDuplicates(p->getDuplicates());
             node = p;
         }
         //find if node has child
@@ -116,21 +116,21 @@ void BinaryTree::postOrder(BTNode *node) {
         return;
     postOrder(node->getLeft());
     postOrder(node->getRight());
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
+    std::cout << node->getElement() << " " << node->getDuplicates() << std::endl;
 }
 
 void BinaryTree::inOrder(BTNode *node) {
     if (node == nullptr)
         return;
     inOrder(node->getLeft());
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
+    std::cout << node->getElement() << " " << node->getDuplicates() << std::endl;
     inOrder(node->getRight());
 }
 
 void BinaryTree::preOrder(BTNode *node) {
     if (node == nullptr)
         return;
-    std::cout << node->getElement() << " " << node->getCopies() << " " << node->getHeight() << std::endl;
+    std::cout << node->getElement() << " " << node->getDuplicates() << std::endl;
     preOrder(node->getLeft());
     preOrder(node->getRight());
 }
@@ -138,7 +138,7 @@ void BinaryTree::preOrder(BTNode *node) {
 int BinaryTree::count(BTNode *node) {
     if (!node)
         return 0;
-    return node->getCopies() + count(node->getLeft()) + count(node->getRight());
+    return node->getDuplicates() + count(node->getLeft()) + count(node->getRight());
 }
 
 int BinaryTree::uniqueCount(BTNode *node) {

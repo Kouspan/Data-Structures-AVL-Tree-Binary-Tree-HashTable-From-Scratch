@@ -26,14 +26,14 @@ int AVLTree::height(BTNode *node) {
     return node->getHeight();
 }
 
-/**adjust height of node and it's ancestors, rotates node if needed **/
+
 void AVLTree::balance(BTNode *node) {
     if (!node)
         return;
     int diff = heightDiff(node);
     if (rotate(node, diff))                 //if node rotated
         diff = heightDiff(node);            //fix it's height node after rotation
-    if (fixHeight(node, diff))
+    if (fixHeight(node, diff))              //if node's height changed, go to node's parent
         balance(node->getParent());
 }
 
@@ -70,7 +70,7 @@ bool AVLTree::rotate(BTNode *node, int diff) {
     return true;
 }
 
-/** **/
+
 int AVLTree::heightDiff(BTNode *node) {
     return height(node->getLeft()) - height(node->getRight());
 }

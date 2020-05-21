@@ -42,7 +42,7 @@ public:
 
     /**
      * Inserts a word in the hash table.
-     * If the word already exists, it increments it's copies by 1
+     * If the word already exists, it increments it's duplicates by 1
      * @param word
      */
     void insert(std::string &word);

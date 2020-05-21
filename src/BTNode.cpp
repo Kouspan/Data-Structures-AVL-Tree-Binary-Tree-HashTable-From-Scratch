@@ -5,7 +5,7 @@ BTNode::BTNode() {
     parent = nullptr;
     left = nullptr;
     right = nullptr;
-    copies = 1;
+    duplicates = 1;
     height = 0;
 }
 
@@ -29,8 +29,8 @@ BTNode *BTNode::getRight() const {
     return right;
 }
 
-int BTNode::getCopies() const {
-    return copies;
+int BTNode::getDuplicates() const {
+    return duplicates;
 }
 
 int BTNode::getHeight() const {
@@ -57,8 +57,8 @@ void BTNode::setRight(BTNode *right1) {
         right->setParent(this);
 }
 
-void BTNode::setCopies(int var) {
-    copies = var;
+void BTNode::setDuplicates(int var) {
+    duplicates = var;
 }
 
 void BTNode::setHeight(int var) {
