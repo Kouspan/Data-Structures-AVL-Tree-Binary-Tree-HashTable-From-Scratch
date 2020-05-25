@@ -15,7 +15,6 @@ unsigned int HashTable::h(unsigned int key, unsigned int i) const {
     return (key + i * i) % capacity;
 }
 
-
 void HashTable::insert(std::string &word) {
     unsigned int k = hash{}(word);
     unsigned int i = 0;
@@ -92,4 +91,9 @@ int HashTable::getCollisions() const {
 
 int HashTable::getCapacity() const {
     return capacity;
+}
+
+HashTable::~HashTable() {
+    delete[] table;
+    delete[] count;
 }

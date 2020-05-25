@@ -3,6 +3,7 @@
 
 
 #include <string>
+
 /**
  * Open address hash table with a string array for words and
  * an int array for the copies of words
@@ -32,6 +33,8 @@ private:
 
 
 public:
+    ~HashTable();
+
     int getCapacity() const;
 
     int getCollisions() const;

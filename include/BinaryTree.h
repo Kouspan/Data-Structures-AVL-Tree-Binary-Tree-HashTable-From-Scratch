@@ -1,6 +1,8 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
+
 #include <BTNode.h>
+
 /**
  * A binary tree made of linked BTNode nodes.
  */
@@ -13,6 +15,9 @@ private:
      * @param node root of subtree to be deleted.
      */
     void deleteTree(BTNode *node);
+
+protected:
+    void setRoot(BTNode *node);
 
 public:
 
@@ -27,7 +32,6 @@ public:
 
     BTNode *getRoot();
 
-    void setRoot(BTNode *node);
 
     /**
      * Add @param word to tree.
