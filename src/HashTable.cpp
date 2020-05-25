@@ -15,14 +15,14 @@ unsigned int HashTable::h(unsigned int key, unsigned int i) const {
     return (key + i * i) % capacity;
 }
 
-void HashTable::insert(std::string &word) {
+int HashTable::insert(std::string &word) {
     unsigned int k = hash{}(word);
     unsigned int i = 0;
     std::size_t j = h(k, i);
     while (!table[j].empty()) {
         if (table[j] == word) {
             count[j]++;
-            return;
+            return j;
         }
         collisions++;
         i++;
@@ -35,33 +35,26 @@ void HashTable::insert(std::string &word) {
         resize(2 * capacity);
         std::cout << "resized to: " << capacity << std::endl;
     }
+    return j;
 }
 
 void HashTable::resize(int cap) {
-    std::string *tempTable = new std::string[cap];
-    int *tempCount = new int[cap];
+    std::string *tempTable = table;
+    int *tempCount = count;
     int tempCap = capacity;
     capacity = cap;
-    for (int z = 0; z < tempCap; z++) {
-        std::string word = table[z];
-        int c = count[z];
+    table = new std::string[cap];
+    count = new int[cap];
+    for (int i = 0; i < tempCap; i++) {
+        std::string word = tempTable[i];
+        int c = tempCount[i];
         if (!word.empty()) {
-            unsigned int k = hash{}(word);
-            unsigned int i = 0;
-            unsigned int j = h(k, i);
-            while (!tempTable[j].empty()) {
-                collisions++;
-                i++;
-                j = h(k, i);
-            }
-            tempTable[j] = word;
-            tempCount[j] = c;
+            int j = insert(word);
+            count[j] = c;
         }
     }
-    delete[] table;
-    delete[] count;
-    table = tempTable;
-    count = tempCount;
+    delete[] tempTable;
+    delete[] tempCount;
 }
 
 int HashTable::contains(const std::string &word) const {

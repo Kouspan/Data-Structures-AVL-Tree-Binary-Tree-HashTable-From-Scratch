@@ -48,7 +48,7 @@ public:
      * If the word already exists, it increments it's duplicates by 1
      * @param word
      */
-    void insert(std::string &word);
+    int insert(std::string &word);
 
     /**
      * Searches if a word exists in the hash table.
