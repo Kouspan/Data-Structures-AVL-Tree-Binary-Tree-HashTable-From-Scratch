@@ -34,7 +34,7 @@ public:
 
 
     /**
-     * Add @param word to tree.
+     * Add word to tree.
      * Increment duplicates of BTNode if word already exists.
      *
      * @return BTNode of word
@@ -42,7 +42,7 @@ public:
     virtual BTNode *insert(const std::string &word);
 
     /**
-     * Delete @param word from tree.
+     * Delete word from tree.
      * If BTNode has more than 1 duplicates of word, decrement by 1.
      *
      * @return BTNode parent of @param word
@@ -50,10 +50,10 @@ public:
     virtual BTNode *remove(const std::string &word);
 
     /**
-     * Search @param word in tree.
+     * Search word in tree.
      * @return BTNode of word if found, else nullptr.
      */
-    BTNode *search(const std::string &) const;
+    BTNode *search(const std::string &word) const;
 
     void postOrder(BTNode *node);
 
@@ -62,13 +62,13 @@ public:
     void preOrder(BTNode *node);
 
     /**
-     * Count all words in the subtree with root @param node.
+     * Count all words in the subtree with root node.
      * @return number of words
      */
     int count(BTNode *node);
 
     /**
-     * Count all unique words in the subtree with root @param node.
+     * Count all unique words in the subtree with root node.
      *
      * @return number of words
      */

@@ -9,7 +9,7 @@ private:
     static int height(BTNode *node);
 
     /**
-     * Checks if @param node needs to rotate and if it's height is correct
+     * Checks if node needs to rotate and if it's height is correct
      * If node rotated or it's height is not correct, it calls itself
      * recursively with parent of node.
      */

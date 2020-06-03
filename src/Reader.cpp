@@ -2,8 +2,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-#include <vector>
-#include <iterator>
+
 
 Reader::Reader(const std::string &name) {
     Reader::fileName = name;
@@ -22,12 +21,12 @@ void Reader::cleanFile() {
     std::string word;
     while (std::getline(file, line)) {
         std::size_t t = -2;
-        while ((t = line.find('-', t + 2)) != std::string::npos) {
-            line.replace(t, 1, " ");
+        while ((t = line.find('-', t + 2)) != std::string::npos) { //first pass to remove '-' from line
+            line.replace(t, 1, " "); // now a word such as "one-word" becomes two words "one word"
         }
         std::istringstream ss(line);
         while (ss >> word) {
-            cleanWord(word);
+            cleanWord(word); //second pass to remove rest of
             output << word << " ";
         }
         ss.clear();
@@ -38,7 +37,7 @@ void Reader::cleanFile() {
     file.seekg(0, std::ios::beg);
 }
 
-/**clean punctuation marks from front and back of @param word**/
+/**clean punctuation marks from front and back of word**/
 void Reader::cleanWord(std::string &word) {
     auto it_f = word.begin();
     while (ispunct(*it_f))
