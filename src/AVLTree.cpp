@@ -32,7 +32,7 @@ void AVLTree::balance(BTNode *node) {
         return;
     int diff = heightDiff(node);
     if (rotate(node, diff))                 //if node rotated
-        diff = heightDiff(node);            //fix it's height node after rotation
+        diff = heightDiff(node);            //fix its height node after rotation
     if (fixHeight(node, diff))              //if node's height changed, go to node's parent
         balance(node->getParent());
 }

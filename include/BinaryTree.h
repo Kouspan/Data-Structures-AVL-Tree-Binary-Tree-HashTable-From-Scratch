@@ -20,7 +20,9 @@ protected:
     void setRoot(BTNode *node);
 
 public:
-
+    /**
+     * Creates a tree with root == null.
+     */
     BinaryTree();
 
     /**
@@ -28,7 +30,10 @@ public:
      */
     ~BinaryTree();
 
-    explicit BinaryTree(const std::string &);
+    /**
+     * Creates a tree with root == word.
+     */
+    explicit BinaryTree(const std::string &word);
 
     BTNode *getRoot();
 
@@ -55,10 +60,25 @@ public:
      */
     BTNode *search(const std::string &word) const;
 
+    /**
+     * Traversal of the subtree with root == node in post-order.
+     * Prints each word and the number of it's duplicates.
+     * @param node root of subtree
+     */
     void postOrder(BTNode *node);
 
+    /**
+     * Traversal of the subtree with root == node in in-order.
+     * Prints each word and the number of it's duplicates.
+     * @param node root of subtree
+     */
     void inOrder(BTNode *node);
 
+    /**
+     * Traversal of the subtree with root == node in pre-order.
+     * Prints each word and the number of it's duplicates.
+     * @param node root of subtree
+     */
     void preOrder(BTNode *node);
 
     /**

@@ -60,7 +60,7 @@ int main() {
     found = snip.bulkContains(ht);
     end = chrono::steady_clock::now();
     out << "------END OF HASHTABLE SEARCH------\n" << endl;
-    temp << "\nHashTable: { \n\t" << "filled %: " << ht.loadFactor() << "%" << endl;
+    temp << "\nHashTable: { \n\t" << "occupied %: " << ht.loadFactor() << "%" << endl;
     temp << "\tunique words: " << ht.getSize() << endl;
     temp << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
     temp << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
