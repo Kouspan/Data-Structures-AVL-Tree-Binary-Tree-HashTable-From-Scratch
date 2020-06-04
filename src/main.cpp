@@ -9,6 +9,7 @@
 using namespace std;
 
 int main() {
+
     ofstream out("output.txt", ios::trunc); //delete previous contents of file
     out.close();
     out.open("output.txt", ios::app);
@@ -22,6 +23,7 @@ int main() {
     Reader snip("Dracula_snip.txt");
     snip.cleanFile();
     int s_w = snip.wordCount();
+
     //Binary Tree output
     out << "------RESULTS OF BINARY TREE SEARCH------" << endl;
     auto now = chrono::steady_clock::now();
@@ -35,6 +37,7 @@ int main() {
     temp << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
     temp << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
     temp << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
+
     //AVL Tree output
     out << "------RESULTS OF AVL TREE SEARCH------" << endl;
     now = chrono::steady_clock::now();
@@ -43,11 +46,12 @@ int main() {
     found = snip.bulkSearch(tree);
     end = chrono::steady_clock::now();
     out << "------END OF AVL TREE SEARCH------\n" << endl;
-    temp << "\nAVL Tree: { \n\t" << "total words: " << Btree.count(tree.getRoot()) << endl;
-    temp << "\tunique words: " << Btree.uniqueCount(tree.getRoot()) << endl;
+    temp << "\nAVL Tree: { \n\t" << "total words: " << tree.count(tree.getRoot()) << endl;
+    temp << "\tunique words: " << tree.uniqueCount(tree.getRoot()) << endl;
     temp << "\tbuild time: " << chrono::duration_cast<chrono::milliseconds>(mid - now).count() << " ms" << endl;
     temp << "\tsearched words: " << s_w << ".\tfound: " << found << endl;
     temp << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
+
     //HashTable output
     out << "------RESULTS OF HASHTABLE SEARCH------" << endl;
     now = chrono::steady_clock::now();
@@ -63,5 +67,6 @@ int main() {
     temp << "\tsearch time: " << chrono::duration_cast<chrono::milliseconds>(end - mid).count() << " ms\n}" << endl;
     out << "------TIME RESULTS------\n" << endl;
     out << temp.str();
+
     return 0;
 }
